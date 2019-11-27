@@ -102,6 +102,6 @@ Although I complete the project by detected the Lane-lines.
 But I just took the most simple way that just combine the sample code together from the lessons before.
 I did not know how to use the Class Line().But it seems useful to improve the process.
 
-Secondly, I did not know well how to debug it.For example, at the  test_videos's 19s-21s, detected lines wobbled a little.
-I could not found the reason, but just know the result from the video. So that I could not improve it.
+Secondly, I did not know well how to debug it.For example, at the  test_videos's 19s-21s, detected lines wobbled a lot.
+I could not find the reason, but just know the result from the video. So that I could not improve it.
 
