@@ -5,7 +5,7 @@
 [image2]: ./image/pipeline_exampleImage.jpg "Road Transformed"
 [image3]: ./image/grad_img.PNG "Binary Example"
 [image4]: ./image/wraped_image.PNG "Warp Example"
-[image5]: ./image/fit_colot.png "Fit Visual"
+[image5]: ./image/fit_color.png "Fit Visual"
 [image6]: ./image/pipeline_image.png "Output"
 [video1]: ./test_video.mp4 "Video"
 
