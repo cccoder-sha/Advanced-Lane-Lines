@@ -7,6 +7,7 @@
 [image4]: ./image/wraped_image.PNG "Warp Example"
 [image5]: ./image/fit_color.png "Fit Visual"
 [image6]: ./image/pipeline_image.png "Output"
+[image7]: ./image/sharp_straight_lines.PNG "Radius "
 [video1]: ./test_video.mp4 "Video"
 
 ## [Rubric](https://review.udacity.com/#!/rubrics/571/view) Points
@@ -37,7 +38,14 @@ To demonstrate this step, I will describe how I apply the distortion correction 
 
 #### 2. Describe how (and identify where in your code) you used color transforms, gradients or other methods to create a thresholded binary image.  Provide an example of a binary image result.
 
-I used a combination of color and gradient thresholds to generate a binary image (thresholding steps at 5th conde cell in ./Advanced-Lane-Lines/P2_v2.ipynb ).  Here's an example of my output for this step.  (note: this is not actually from one of the test images)
+I used a combination of color and gradient thresholds to generate a binary image (thresholding steps at 5th conde cell in ./Advanced-Lane-Lines/P2_v2.ipynb ). I define a function called GradientAndColor().This function use the HSL color space and x direct granient in default.
+It takes as inputs as input image('img), S channel thresholds('s_thresh'), gradient thresholds ('sx_thresh'), direct of gradient ('orient').
+
+And Schannel thresholds equal (170, 255) in default,gradient thresholds equal (20, 100) in defalut, direct of gradient equal x in default.
+
+Here's an example of my output for this step.  (note: this is not actually from one of the test images)
+
+
 
 ![alt text][image3]
 
@@ -64,19 +72,36 @@ I verified that my perspective transform was working as expected by drawing the 
 
 #### 4. Describe how (and identify where in your code) you identified lane-line pixels and fit their positions with a polynomial?
 
-Then I did some other stuff and fit my lane lines with a 2nd order polynomial kinda like this:
+I defined two functions called fit_polynomial() and find_lane_pixels(),these two function help me identifing lane-line pixels and fitting their positions with a polynomial.You can see them in the 8th code cell of the P2_v2.ipynb.
 
 ![alt text][image5]
 
 #### 5. Describe how (and identify where in your code) you calculated the radius of curvature of the lane and the position of the vehicle with respect to center.
 
-I did this in the 9th code cell and 11th code cell in my code in `P2_v2.ipynb`
+I did this in the 9th,11th,13th code cell in my code in `P2_v2.ipynb`
 
-In the 9th code cell ,I define a function called measure_curvature_pixels().
-The `measure_curvature_pixels()` function takes as inputs an ploty (`mtx`), left_fit (`left_fit`) and right_fit (`right_fit`) . 
+In the 9th code cell, in the function fit_polynomial(), I calculated the left_fit_meters and right_fit_meters with the below code:
+```python
+    left_fit_meters = np.polyfit(lefty*ym_per_pix, leftx*xm_per_pix, 2)
+    right_fit_meters = np.polyfit(righty*ym_per_pix, rightx*xm_per_pix, 2)
+```
 
-In the 11th code cell, I called measure_curvature_pixels() function to calculate the radius of leftand right.
+In the 11th code cell ,I define a function called measure_curvature_pixels().
+The `measure_curvature_pixels()` function takes as inputs an ploty (`ploty`), left_fit (`left_fit_meters`) and right_fit (`right_fit_meters`) . 
+And I also calculate the ploty into meters by the below code:
+
+```python
+     y_eval_meters = np.max(ploty)*ym_per_pix
+```
+In the 13th code cell, I called measure_curvature_pixels() function to calculate the radius of leftand right.
 And then take the average of both radius as the final radius.
+
+As a result,The radius for the sharp curve will be numbers in the hunders of meters,this is ok.
+But,The radius for the stright line will be numbers in the 10Km+ of meters, Is this a problem? I am not able to find the reason.
+
+![alt text][image7]
+
+
 
 #### 6. Provide an example image of your result plotted back down onto the road such that the lane area is identified clearly.
 
